@@ -29,7 +29,6 @@ const Navbar = (setShowLogin) => {
           </div>
 
           {/* 2 buttons */}
-
           <div className='flex max-sm:flex-col items-start sm:items-center gap-6'>
             <button onClick={()=> navigate('/owner')}
              className='cursor-pointer hover:text-blue-400'>Dashboard
@@ -38,6 +37,15 @@ const Navbar = (setShowLogin) => {
           </div>
 
       </div>
+
+
+      {/* hamburger icon for only mobile screen */}
+          <button className='sm:hidden cursor-pointer' aria-label='Menu' onClick={()=> setOpen(!open)}>
+            <img src={open ? assets.close_icon : assets.menu_icon} alt="menu" />
+          </button>
+
+
+
     </div>
   )
 }
