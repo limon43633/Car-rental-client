@@ -11,8 +11,9 @@ const Banner = () => {
           <p className='max-w-130'>We take care of insurance, driver verification and secure payments — so you can earn passive income, stres</p>
 
           <button className='px-6 py-2 bg-white hover:bg-slate-100 text-primary rounded-lg text-sm mt-4 cursor-pointer
-             transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-md border border-transparent hover:border-primary/20 font-medium"
-'>List your car</button>
+             transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-md border border-transparent hover:border-primary/20 font-medium'>
+              List your car
+          </button>
         </div>
 
         <img src={assets.banner_car_image} alt="banner car" className='max-h-45 mt-10' />
