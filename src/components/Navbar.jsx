@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { assets, menuLinks } from '../assets/assets'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
-const Navbar = (setShowLogin) => {
+const Navbar = ({setShowLogin}) => {
 
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -33,7 +33,9 @@ const Navbar = (setShowLogin) => {
             <button onClick={()=> navigate('/owner')}
              className='cursor-pointer hover:text-blue-400'>Dashboard
              </button>
-            <button onClick={()=> setShowLogin(true)}  className='cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg'>Login</button>
+            <button onClick={()=> setShowLogin(true)} className='cursor-pointer px-8 py-2 bg-primary hover:bg-primary-dull transition-all text-white rounded-lg'>
+              Login
+            </button>
           </div>
 
       </div>
