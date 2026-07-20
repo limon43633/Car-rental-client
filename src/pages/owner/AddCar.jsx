@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import Title from '../../components/owner/Title'
 import { assets } from '../../assets/assets'
+import { useAppContext } from '../../context/AppContext'
+import toast from 'react-hot-toast'
 
 const AddCar = () => {
 
 
-  const currency = import.meta.env.VITE_CURRENCY
+  const {axios, currency} = useAppContext()
 
   const [image, setImage] = useState(null)
   const [car, setCar] = useState({
@@ -16,14 +18,47 @@ const AddCar = () => {
     category: '',
     transmission: '',
     fuel_type: '',
-    seating_capcity: '0',
+    seating_capacity: '0',
     location: '',
     description: '',
   })
 
-
+  const [isLoading, setIsLoading] = useState(false)
   const onSubmitHandler = async (e) => {
     e.preventDefault()
+    if(isLoading) return null
+
+    setIsLoading(true)
+    try {
+      const formData = new FormData()
+      formData.append('image', image)
+      formData.append('carData', JSON.stringify(car))
+
+      const {data} = await axios.post('/api/owner/add-car', formData)
+
+      if(data.success){
+        toast.success(data.message)
+        setImage(null)
+        setCar({
+          brand: '',
+          model: '',
+          year: '0',
+          pricePerDay: '0',
+          category: '',
+          transmission: '',
+          fuel_type: '',
+          seating_capacity: '0',
+          location: '',
+          description: '',
+        })
+      }else{
+        toast.error(data.message)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    }finally{
+      setIsLoading(false)
+    }
   }
 
 
@@ -106,7 +141,7 @@ const AddCar = () => {
 
           <div className='flex flex-col w-full'>
             <label>Seating capacity</label>
-            <input type="number" placeholder='4' required className='px-3 py-2 mt-1 border border-border-color rounded-md' value={car.seating_capcity} onChange={e=> setCar({...car, seating_capcity: e.target.value})}/>
+            <input type="number" placeholder='4' required className='px-3 py-2 mt-1 border border-border-color rounded-md' value={car.seating_capacity} onChange={e=> setCar({...car, seating_capacity: e.target.value})}/>
           </div>
 
         </div>
@@ -133,7 +168,7 @@ const AddCar = () => {
 
         <button className='flex items-center gap-2 px-4 py-2.5 mt-4 bg-primary text-white rounded-md font-medium w-max cursor-pointer'>
           <img src={assets.tick_icon} alt="" />
-          List your car
+          {isLoading ? 'Listing...' : 'List your car'}
         </button>
 
       </form>
